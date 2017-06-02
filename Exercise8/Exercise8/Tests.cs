@@ -31,9 +31,9 @@ namespace Exercise8
 
     public static class CardSorter
     {
-        public static IEnumerable<Card> SortCards(IEnumerable<Card> empty)
+        public static IEnumerable<Card> SortCards(IEnumerable<Card> cards)
         {
-            return empty;
+            return cards;
         }
     }
 }
