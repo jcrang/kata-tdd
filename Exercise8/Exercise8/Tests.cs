@@ -88,7 +88,7 @@ namespace Exercise8
             {
                 if (cardList[0].Value > cardList[1].Value)
                 {
-                    cardList = new List<Card> { cardList[1], cardList[0], cardList[2] };
+                    Swap(cardList, 0, 1);
                 }
 
                 if (cardList[1].Value > cardList[2].Value)
@@ -103,6 +103,13 @@ namespace Exercise8
             }
 
             return cardList;
+        }
+
+        private static void Swap(IList<Card> cardList, int from, int to)
+        {
+            var temporaryCard = cardList[from];
+            cardList[from] = cardList[to];
+            cardList[to] = temporaryCard;
         }
     }
 }
