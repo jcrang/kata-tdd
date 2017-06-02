@@ -27,7 +27,7 @@ namespace Exercise8
         [Test]
         public void SortCards_TwoInOrder_IsSame()
         {
-            var unsortedCards = new[] { new Card(1), new Card(2)  };
+            var unsortedCards = new[] { new Card(1), new Card(2) };
             var sortedCards = CardSorter.SortCards(unsortedCards);
 
             Assert.That(sortedCards, Is.EqualTo(new[] { new Card(1), new Card(2) }));
@@ -95,7 +95,7 @@ namespace Exercise8
         {
             var cardList = cards.ToList();
 
-            for (int i = 0; i < cardList.Count - 1; i++)
+            for (int passIndex = 0; passIndex < cardList.Count - 1; passIndex++)
             {
                 SwapPass(cardList);
             }
@@ -103,13 +103,13 @@ namespace Exercise8
             return cardList;
         }
 
-        private static void SwapPass(List<Card> cardList)
+        private static void SwapPass(IList<Card> cardList)
         {
-            for (int i = 0; i < cardList.Count - 1; i++)
+            for (int cardIndex = 0; cardIndex < cardList.Count - 1; cardIndex++)
             {
-                if (cardList[i].Value > cardList[i + 1].Value)
+                if (cardList[cardIndex].Value > cardList[cardIndex + 1].Value)
                 {
-                    Swap(cardList, i, i+1);
+                    Swap(cardList, cardIndex, cardIndex + 1);
                 }
             }
         }
