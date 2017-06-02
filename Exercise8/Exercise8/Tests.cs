@@ -23,10 +23,25 @@ namespace Exercise8
             var sortedCards = CardSorter.SortCards(unsortedCards);
             Assert.That(sortedCards, Is.EqualTo(new[] { new Card() }));
         }
+
+        [Test]
+        public void SortCards_TwoInOrder_IsSame()
+        {
+            var unsortedCards = new[] { new Card(1), new Card(2)  };
+            var sortedCards = CardSorter.SortCards(unsortedCards);
+
+            Assert.That(sortedCards, Is.EqualTo(new[] { new Card(1), new Card(2) }));
+        }
     }
 
     public struct Card
     {
+        private int v;
+
+        public Card(int v)
+        {
+            this.v = v;
+        }
     }
 
     public static class CardSorter
