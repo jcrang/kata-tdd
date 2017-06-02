@@ -61,9 +61,18 @@ namespace Exercise8
         }
 
         [Test]
-        public void SortCards_FourNotReverseOrInOrder_AreSorted()
+        public void SortCards_FourReverseOrder_AreSorted()
         {
             var unsortedCards = new[] { new Card(4), new Card(3), new Card(2), new Card(1) };
+            var sortedCards = CardSorter.SortCards(unsortedCards);
+
+            Assert.That(sortedCards, Is.EqualTo(new[] { new Card(1), new Card(2), new Card(3), new Card(4) }));
+        }
+
+        [Test]
+        public void SortCards_FourNotReverseOrInOrder_AreSorted()
+        {
+            var unsortedCards = new[] { new Card(4), new Card(1), new Card(2), new Card(3) };
             var sortedCards = CardSorter.SortCards(unsortedCards);
 
             Assert.That(sortedCards, Is.EqualTo(new[] { new Card(1), new Card(2), new Card(3), new Card(4) }));
@@ -86,36 +95,23 @@ namespace Exercise8
         {
             var cardList = cards.ToList();
 
-            if (cardList.Count == 2)
+            for (int i = 0; i < cardList.Count - 1; i++)
             {
-                if (cardList[0].Value > cardList[1].Value)
-                {
-                    Swap(cardList, 0, 1);
-                }
-            }
-            else if (cardList.Count == 3)
-            {
-                if (cardList[0].Value > cardList[1].Value)
-                {
-                    Swap(cardList, 0, 1);
-                }
-
-                if (cardList[1].Value > cardList[2].Value)
-                {
-                    Swap(cardList, 1, 2);
-                }
-
-                if (cardList[0].Value > cardList[1].Value)
-                {
-                    Swap(cardList, 0, 1);
-                }
-            }
-            else if (cardList.Count == 4)
-            {
-                cardList.Reverse();
+                SwapPass(cardList);
             }
 
             return cardList;
+        }
+
+        private static void SwapPass(List<Card> cardList)
+        {
+            for (int i = 0; i < cardList.Count - 1; i++)
+            {
+                if (cardList[i].Value > cardList[i + 1].Value)
+                {
+                    Swap(cardList, i, i+1);
+                }
+            }
         }
 
         private static void Swap(IList<Card> cardList, int from, int to)
