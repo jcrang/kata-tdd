@@ -50,6 +50,15 @@ namespace Exercise8
 
             Assert.That(sortedCards, Is.EqualTo(new[] { new Card(1), new Card(2), new Card(3) }));
         }
+
+        [Test]
+        public void SortCards_ThreeNotReverseOrInOrder_AreSorted()
+        {
+            var unsortedCards = new[] { new Card(3), new Card(1), new Card(2) };
+            var sortedCards = CardSorter.SortCards(unsortedCards);
+
+            Assert.That(sortedCards, Is.EqualTo(new[] { new Card(1), new Card(2), new Card(3) }));
+        }
     }
 
     public struct Card
@@ -66,15 +75,34 @@ namespace Exercise8
     {
         public static IEnumerable<Card> SortCards(IEnumerable<Card> cards)
         {
-            if (cards.Count() >= 2)
+            var cardList = cards.ToList();
+
+            if (cardList.Count == 2)
             {
-                if (cards.First().Value > cards.Last().Value)
+                if (cardList.First().Value > cardList.Last().Value)
                 {
                     return cards.Reverse();
                 }
             }
+            else if (cardList.Count > 2)
+            {
+                if (cardList[0].Value > cardList[1].Value)
+                {
+                    cardList = new List<Card> { cardList[1], cardList[0], cardList[2] };
+                }
 
-            return cards;
+                if (cardList[1].Value > cardList[2].Value)
+                {
+                    cardList = new List<Card> { cardList[0], cardList[2], cardList[1] };
+                }
+
+                if (cardList[0].Value > cardList[1].Value)
+                {
+                    cardList = new List<Card> { cardList[1], cardList[0], cardList[2] };
+                }
+            }
+
+            return cardList;
         }
     }
 }
