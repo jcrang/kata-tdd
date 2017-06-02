@@ -81,7 +81,7 @@ namespace Exercise8
             {
                 if (cardList.First().Value > cardList.Last().Value)
                 {
-                    return cards.Reverse();
+                    Swap(cardList, 0, 1);
                 }
             }
             else if (cardList.Count > 2)
