@@ -93,12 +93,12 @@ namespace Exercise8
 
                 if (cardList[1].Value > cardList[2].Value)
                 {
-                    cardList = new List<Card> { cardList[0], cardList[2], cardList[1] };
+                    Swap(cardList, 1, 2);
                 }
 
                 if (cardList[0].Value > cardList[1].Value)
                 {
-                    cardList = new List<Card> { cardList[1], cardList[0], cardList[2] };
+                    Swap(cardList, 0, 1);
                 }
             }
 
