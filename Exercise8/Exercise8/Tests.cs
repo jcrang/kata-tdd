@@ -15,9 +15,17 @@ namespace Exercise8
 
             Assert.That(sortedCards, Is.Empty);
         }
+
+        [Test]
+        public void SortCards_OneCard_IsSame()
+        {
+            var unsortedCards = new[] { new Card(), };
+            var sortedCards = CardSorter.SortCards(unsortedCards);
+            Assert.That(sortedCards, Is.EqualTo(new[] { new Card() }));
+        }
     }
 
-    public class Card
+    public struct Card
     {
     }
 
@@ -25,7 +33,7 @@ namespace Exercise8
     {
         public static IEnumerable<Card> SortCards(IEnumerable<Card> empty)
         {
-            return Enumerable.Empty<Card>();
+            return empty;
         }
     }
 }
