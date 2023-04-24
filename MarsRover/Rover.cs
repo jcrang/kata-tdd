@@ -10,7 +10,7 @@ public enum Direction
 
 public class Rover
 {
-    public (int X, int Y) Location { get; }
+    public (int X, int Y) Location { get; private set; }
     public Direction Direction { get; }
 
     public Rover((int, int) location, Direction direction)
@@ -21,5 +21,18 @@ public class Rover
 
     public void ExecuteCommands(char[] commands)
     {
+        foreach (var command in commands)
+        {
+            if (command == 'f')
+            {
+                Location = (Location.X, Location.Y + 1);
+            }
+
+            if (command == 'b')
+            {
+                Location = (Location.X, Location.Y - 1);
+            }
+            //What does Nasa want us to do if command isn't f or b?
+        }
     }
 }

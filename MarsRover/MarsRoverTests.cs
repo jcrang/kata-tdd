@@ -14,15 +14,34 @@ public class MarsRoverTests
         marsRover.Location.Should().Be((1, 1));
         marsRover.Direction.Should().Be(Direction.N);
     }
-    
+
     [Test]
-    public void Rover_GivenEmptyCommandSet_NoChangeToDirectionOrLocation()
+    public void ExecuteCommands_GivenEmptyCommandSet_RoverStaysWhereItIs()
     {
         var marsRover = new Rover((1, 1), Direction.N);
-        
-        marsRover.ExecuteCommands(new char[]{});
-        
+
+        marsRover.ExecuteCommands(new char[] { });
+
         marsRover.Location.Should().Be((1, 1));
         marsRover.Direction.Should().Be(Direction.N);
+    }
+
+    [TestCase('f', 2)]
+    [TestCase('b', 0)]
+    public void ExecuteCommands_GivenASingleMovement_LocationChanges(char command, int expectedY)
+    {
+        var marsRover = new Rover((1, 1), Direction.N);
+
+        marsRover.ExecuteCommands(new[] {command});
+        marsRover.Location.Should().Be((1, expectedY));
+    }
+
+    [TestCase(new[] {'f', 'f'}, 3)]
+    public void ExecuteCommands_GivenMovement_LocationChanges(char[] commands, int expectedY)
+    {
+        var marsRover = new Rover((1, 1), Direction.N);
+
+        marsRover.ExecuteCommands(commands);
+        marsRover.Location.Should().Be((1, expectedY));
     }
 }
