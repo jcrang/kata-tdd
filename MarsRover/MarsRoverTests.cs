@@ -44,7 +44,7 @@ public class MarsRoverTests
         marsRover.ExecuteCommands(commands);
         marsRover.Location.Should().Be((1, expectedY));
     }
-    
+
     [TestCase('l', Direction.W)]
     [TestCase('r', Direction.E)]
     public void ExecuteCommands_GivenASingleTurn_DirectionChanges(char command, Direction expectedDirection)
@@ -55,5 +55,20 @@ public class MarsRoverTests
         marsRover.Direction.Should().Be((expectedDirection));
     }
 
-    
+    [TestCase('r', Direction.W, Direction.N)]
+    [TestCase('r', Direction.S, Direction.W)]
+    [TestCase('r', Direction.E, Direction.S)]
+    [TestCase('r', Direction.N, Direction.E)]
+    [TestCase('l', Direction.W, Direction.S)]
+    [TestCase('l', Direction.S, Direction.E)]
+    [TestCase('l', Direction.E, Direction.N)]
+    [TestCase('l', Direction.N, Direction.W)]
+    public void ExecuteCommands_GivenASingleTurn_DirectionChanges(char command, Direction initialDirection,
+        Direction expectedDirection)
+    {
+        var marsRover = new Rover((1, 1), initialDirection);
+
+        marsRover.ExecuteCommands(new[] {command});
+        marsRover.Direction.Should().Be((expectedDirection));
+    }
 }

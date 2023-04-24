@@ -3,15 +3,15 @@ namespace MarsRover;
 public enum Direction
 {
     N,
-    S,
     E,
+    S,
     W
 }
 
 public class Rover
 {
     public (int X, int Y) Location { get; private set; }
-    public Direction Direction { get; }
+    public Direction Direction { get; private set; }
 
     public Rover((int, int) location, Direction direction)
     {
@@ -21,18 +21,29 @@ public class Rover
 
     public void ExecuteCommands(char[] commands)
     {
+        var directions = Enum.GetValues<Direction>();
+
         foreach (var command in commands)
         {
-            if (command == 'f')
+            var index = Array.IndexOf(directions, Direction);
+
+            switch (command)
             {
-                Location = (Location.X, Location.Y + 1);
+                case 'f':
+                    Location = (Location.X, Location.Y + 1);
+                    break;
+                case 'b':
+                    Location = (Location.X, Location.Y - 1);
+                    break;
+                case 'l':
+                    Direction = directions[(index + directions.Length - 1) % directions.Length];
+                    break;
+                case 'r':
+                    Direction = directions[(index + 1) % directions.Length];
+                    break;
             }
 
-            if (command == 'b')
-            {
-                Location = (Location.X, Location.Y - 1);
-            }
-            //What does Nasa want us to do if command isn't f or b?
+            //What does Nasa want us to do if command isn't f, b, l, or r?
         }
     }
 }
