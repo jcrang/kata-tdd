@@ -44,4 +44,16 @@ public class MarsRoverTests
         marsRover.ExecuteCommands(commands);
         marsRover.Location.Should().Be((1, expectedY));
     }
+    
+    [TestCase('l', Direction.W)]
+    [TestCase('r', Direction.E)]
+    public void ExecuteCommands_GivenASingleTurn_DirectionChanges(char command, Direction expectedDirection)
+    {
+        var marsRover = new Rover((1, 1), Direction.N);
+
+        marsRover.ExecuteCommands(new[] {command});
+        marsRover.Direction.Should().Be((expectedDirection));
+    }
+
+    
 }
