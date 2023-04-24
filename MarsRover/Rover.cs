@@ -18,4 +18,8 @@ public class Rover
         Location = location;
         Direction = direction;
     }
+
+    public void ExecuteCommands(char[] commands)
+    {
+    }
 }
