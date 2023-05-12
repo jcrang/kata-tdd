@@ -6,6 +6,8 @@ public record Interviewer(string Name, int Effort)
     public int Effort { get; set; } = Effort;
 }
 
+public record Interview(string Name, Action Abandon);
+
 public class InterviewRota {
     private readonly List<Interviewer> _list;
 
