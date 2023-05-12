@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 
 namespace InterviewRota;
 
@@ -8,6 +9,6 @@ public class InterviewRotaTests
     [Test]
     public void OneAddOne()
     {
-        Assert.That(1 + 1, Is.EqualTo(2));
+        (1 + 1).Should().Be(2);
     }
 }
