@@ -25,4 +25,18 @@ public class InterviewRotaTests
         rota.GetNextInterviewer(0).Should().Be("Bob");
         rota.GetNextInterviewer(0).Should().Be("Steve");
     }
+    
+    [Test]
+    public void GetNextInterviewer_TwoInterviewersOneDoesFive_ReturnsOtherInterviewerFiveTimes()
+    {
+        var rota = new InterviewRota(new[] {"Bob", "Steve"});
+
+        rota.GetNextInterviewer(5).Should().Be("Bob");
+        rota.GetNextInterviewer(1).Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Should().Be("Bob");
+    }
 }

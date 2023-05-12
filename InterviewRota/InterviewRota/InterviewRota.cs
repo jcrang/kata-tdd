@@ -7,22 +7,20 @@ public record Interviewer(string Name, int Effort)
 }
 
 public class InterviewRota {
-    private readonly Queue<Interviewer> _queue = new();
+    private readonly List<Interviewer> _list;
 
     public InterviewRota(IEnumerable<string> interviewers)
     {
-        foreach (var interviewer in interviewers)
-        {
-            _queue.Enqueue(new Interviewer(interviewer, 0));
-        }
+        _list = interviewers.Select(x => new Interviewer(x, 0)).ToList();
     }
 
     public string GetNextInterviewer(int effort)
     {
-        var interviewer = _queue.Dequeue();
-        interviewer.Effort += effort;
 
-        _queue.Enqueue(interviewer);
+        var interviewer = _list.MinBy(x => x.Effort);
+        _list.Remove(interviewer!);
+        interviewer!.Effort += effort;
+        _list.Add(interviewer);
         return interviewer.Name;
     }
 }
