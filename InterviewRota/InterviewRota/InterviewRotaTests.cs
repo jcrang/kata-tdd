@@ -7,8 +7,22 @@ namespace InterviewRota;
 public class InterviewRotaTests
 {
     [Test]
-    public void OneAddOne()
+    public void GetNextInterviewer_OneInterviewer_ReturnsSameInterviewerTwice()
     {
-        (1 + 1).Should().Be(2);
+        var rota = new InterviewRota(new[] {"Bob"});
+
+        rota.GetNextInterviewer(0).Should().Be("Bob");
+        rota.GetNextInterviewer(0).Should().Be("Bob");
+    }
+    
+    [Test]
+    public void GetNextInterviewer_TwoInterviewers_ReturnsSameInterviewersTwice()
+    {
+        var rota = new InterviewRota(new[] {"Bob", "Steve"});
+
+        rota.GetNextInterviewer(0).Should().Be("Bob");
+        rota.GetNextInterviewer(0).Should().Be("Steve");        
+        rota.GetNextInterviewer(0).Should().Be("Bob");
+        rota.GetNextInterviewer(0).Should().Be("Steve");
     }
 }
