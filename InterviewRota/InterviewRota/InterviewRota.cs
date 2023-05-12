@@ -2,13 +2,38 @@
 
 public record Interviewer(string Name, int Effort)
 {
-    public string Name { get; set; } = Name;
+    public string Name { get; } = Name;
     public int Effort { get; set; } = Effort;
 }
 
-public record Interview(string Name, Action Abandon);
+public record Interview
+{
+    public string Name { get; }
+    private readonly Action _onAbandon;
+    private readonly Action _onAccept;
 
-public class InterviewRota {
+    public Interview(string name, Action onAbandon, Action onAccept)
+    {
+        Name = name;
+        _onAbandon = onAbandon;
+        _onAccept = onAccept;
+    }
+
+    public Interview Abandon()
+    {
+        _onAbandon();
+        return this;
+    }
+    
+    public Interview Accept()
+    {
+        _onAccept();
+        return this;
+    }
+}
+
+public class InterviewRota
+{
     private readonly List<Interviewer> _list;
 
     public InterviewRota(IEnumerable<string> interviewers)
@@ -16,13 +41,20 @@ public class InterviewRota {
         _list = interviewers.Select(x => new Interviewer(x, 0)).ToList();
     }
 
-    public string GetNextInterviewer(int effort)
+    public Interview GetNextInterviewer(int effort)
     {
-
         var interviewer = _list.MinBy(x => x.Effort);
-        _list.Remove(interviewer!);
         interviewer!.Effort += effort;
-        _list.Add(interviewer);
-        return interviewer.Name;
+
+        return new Interview(interviewer.Name,
+            () =>
+            {
+                interviewer.Effort -= effort;
+            },
+            () =>
+            {
+                _list.Remove(interviewer);
+                _list.Add(interviewer);
+            });
     }
 }

@@ -11,8 +11,8 @@ public class InterviewRotaTests
     {
         var rota = new InterviewRota(new[] {"Bob"});
 
-        rota.GetNextInterviewer(0).Should().Be("Bob");
-        rota.GetNextInterviewer(0).Should().Be("Bob");
+        rota.GetNextInterviewer(0).Accept().Name.Should().Be("Bob");
+        rota.GetNextInterviewer(0).Accept().Name.Should().Be("Bob");
     }
     
     [Test]
@@ -20,10 +20,10 @@ public class InterviewRotaTests
     {
         var rota = new InterviewRota(new[] {"Bob", "Steve"});
 
-        rota.GetNextInterviewer(0).Should().Be("Bob");
-        rota.GetNextInterviewer(0).Should().Be("Steve");        
-        rota.GetNextInterviewer(0).Should().Be("Bob");
-        rota.GetNextInterviewer(0).Should().Be("Steve");
+        rota.GetNextInterviewer(0).Accept().Name.Should().Be("Bob");
+        rota.GetNextInterviewer(0).Accept().Name.Should().Be("Steve");        
+        rota.GetNextInterviewer(0).Accept().Name.Should().Be("Bob");
+        rota.GetNextInterviewer(0).Accept().Name.Should().Be("Steve");
     }
     
     [Test]
@@ -31,12 +31,12 @@ public class InterviewRotaTests
     {
         var rota = new InterviewRota(new[] {"Bob", "Steve"});
 
-        rota.GetNextInterviewer(5).Should().Be("Bob");
-        rota.GetNextInterviewer(1).Should().Be("Steve");        
-        rota.GetNextInterviewer(1).Should().Be("Steve");        
-        rota.GetNextInterviewer(1).Should().Be("Steve");        
-        rota.GetNextInterviewer(1).Should().Be("Steve");        
-        rota.GetNextInterviewer(1).Should().Be("Steve");        
-        rota.GetNextInterviewer(1).Should().Be("Bob");
+        rota.GetNextInterviewer(5).Accept().Name.Should().Be("Bob");
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Steve");        
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Bob");
     }
 }
