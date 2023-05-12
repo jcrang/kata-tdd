@@ -39,4 +39,19 @@ public class InterviewRotaTests
         rota.GetNextInterviewer(1).Accept().Name.Should().Be("Steve");        
         rota.GetNextInterviewer(1).Accept().Name.Should().Be("Bob");
     }
+    
+    [Test]
+    public void GetNextInterviewer_TwoInterviewersOneDelaysThenAbandonsDecision_OtherInterviewerShouldBeChosenUntilAbandoned()
+    {
+        var rota = new InterviewRota(new[] {"Bob", "Steve"});
+
+        var bob = rota.GetNextInterviewer(5);
+        bob.Name.Should().Be("Bob");
+        
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Steve");
+        bob.Abandon();
+        
+        rota.GetNextInterviewer(1).Accept().Name.Should().Be("Bob");        
+    }
+    
 }
